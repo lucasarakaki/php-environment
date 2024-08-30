@@ -1,0 +1,14 @@
+version: "3.8"
+
+# Construindo image/container PHP
+services:
+  php:
+    build:
+      context: .
+    image: phpenvironment
+    container_name: php
+    ports:
+      - "9000:9000"
+    volumes:
+      - ".:/var/www/html"
+    command: php -S 0.0.0.0:9000 -t public/
