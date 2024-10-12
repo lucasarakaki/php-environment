@@ -1,7 +1,6 @@
-version: "3.8"
-
-# Construindo image/container PHP
+# Construindo um ambiente PHP
 services:
+  # image / container php:7.4-fpm
   php:
     build:
       context: .
@@ -12,3 +11,20 @@ services:
     volumes:
       - ".:/var/www/html"
     command: php -S 0.0.0.0:9000 -t public/
+    links: 
+      - mysql
+  # image / container mariadb:10.11
+  mysql:
+    image: mariadb:10.11
+    container_name: mariadb_dkr
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql:/var/lib/mysql/
+    environment:
+      MYSQL_DATABASE: 'database'
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: 'root'
+      MYSQL_ROOT_PASSWORD: 'root'
+volumes:
+  mysql: 
